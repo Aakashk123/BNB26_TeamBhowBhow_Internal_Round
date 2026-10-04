@@ -1,0 +1,64 @@
+name: Quality gates
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: modelledger
+          POSTGRES_PASSWORD: test-only-password
+          POSTGRES_DB: modelledger
+        ports: ["5432:5432"]
+        options: --health-cmd="pg_isready -U modelledger" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: make bootstrap
+      - run: make lint typecheck
+      - run: make test-python
+        env:
+          TEST_DATABASE_URL: postgresql+psycopg://modelledger:test-only-password@localhost:5432/modelledger
+      - run: make test-contracts
+      - run: make test-web
+      - run: make adversarial
+      - run: make api-types
+      - run: git diff --exit-code frontend/src/api-types.ts docs/openapi.json
+      - run: cd frontend && npm run build
+      - name: Dependency audit evidence
+        run: |
+          .venv/bin/pip-audit --format json > reports/pip-audit.json || true
+          cd frontend && npm audit --json > ../reports/frontend-audit.json || true
+          cd ../contracts && npm audit --json > ../reports/contracts-audit.json || true
+      - name: Block runtime dependency vulnerabilities
+        run: .venv/bin/pip-audit -r backend/requirements.lock
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-results
+          path: |
+            reports/
+            frontend/playwright-report/
+            docs/screenshots/
+  compose:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install eth-account==0.14.0
+      - run: python scripts/configure.py
+      - run: docker compose up --build -d --wait --wait-timeout 300
+      - run: curl --fail http://localhost:8080/api/v1/health
+      - name: Capture container logs
+        if: failure()
+        run: docker compose logs --no-color
+      - name: Stop services
+        if: always()
+        run: docker compose down -v

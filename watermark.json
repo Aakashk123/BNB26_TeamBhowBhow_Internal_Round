@@ -1,0 +1,10 @@
+{
+  "experimental": true,
+  "enabled": false,
+  "positive_pairs": 100,
+  "negative_pairs": 100,
+  "mean_psnr_db": 44.01213525168847,
+  "minimum_positive_score": 11.767135076272776,
+  "maximum_negative_score": 4.932138386470717,
+  "decision": "REJECT production enablement: sample size cannot establish FPR <= 1e-6; no detector thresholds promoted"
+}

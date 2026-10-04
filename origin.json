@@ -1,0 +1,147 @@
+{
+  "rows": [
+    {
+      "scenario": "honest-chain",
+      "signature_only": "VERIFIED",
+      "expected": "VERIFIED",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "authorized-lie",
+      "signature_only": "VERIFIED",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "unapproved-key",
+      "signature_only": "UNVERIFIABLE",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "impersonation",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "field-tampering",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "parent-swap",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "wrong-binding",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "metadata-strip",
+      "signature_only": "VERIFIED",
+      "expected": "VERIFIED",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "missing-middle",
+      "signature_only": "VERIFIED",
+      "expected": "PARTIALLY_VERIFIED",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "time-travel",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "revoked-window",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "before-revocation",
+      "signature_only": "VERIFIED",
+      "expected": "VERIFIED",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "conflicting-origin",
+      "signature_only": "VERIFIED",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "sybil-witness",
+      "signature_only": "VERIFIED",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "laundering",
+      "signature_only": "UNVERIFIABLE",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "fake-exif",
+      "signature_only": "UNVERIFIABLE",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "parent-cycle",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "c2pa-tamper",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "audit-tamper",
+      "signature_only": "VERIFIED",
+      "expected": "PROVENANCE_INVALID",
+      "baseline_correct": false,
+      "full_policy_correct": true
+    },
+    {
+      "scenario": "unknown-image",
+      "signature_only": "UNVERIFIABLE",
+      "expected": "UNVERIFIABLE",
+      "baseline_correct": true,
+      "full_policy_correct": true
+    }
+  ],
+  "signature_only_correct": 7,
+  "full_policy_correct": 20,
+  "scope": "Controlled baseline versus production engine; TEE and watermark adapters not accredited or counted."
+}

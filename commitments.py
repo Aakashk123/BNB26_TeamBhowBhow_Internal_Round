@@ -2,7 +2,7 @@ import secrets
 
 from eth_utils.crypto import keccak
 
-from .merkle import proof, tree, verify
+from app.core.merkle import proof, tree, verify
 
 FIELDS = {"prompt", "negative_prompt", "seed", "sampler_params", "source_file_sha256", "operator_id"}
 

@@ -4,8 +4,8 @@ from eth_account import Account
 from eth_account.messages import encode_defunct, encode_typed_data
 from eth_utils.crypto import keccak
 
-from .canonical import canonical
-from .hashing import sha256
+from app.core.canonical import canonical
+from app.core.hashing import sha256
 
 ZERO = "0x" + "00" * 32
 EVENT_TYPES = {

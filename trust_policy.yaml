@@ -1,0 +1,17 @@
+version: 1.0.0
+independent_corroborations: 1
+max_clock_skew_seconds: 300
+max_graph_nodes: 1000
+candidate_threshold: 19
+max_candidates: 10
+watermark_enabled: false
+ai_actions:
+- 1
+- 2
+- 3
+deterministic_actions:
+- 4
+- 5
+- 6
+- 7
+derivation_threshold: 30

@@ -1,0 +1,7 @@
+{
+  "fixture": "200-node synthetic rendering benchmark",
+  "nodes": 200,
+  "edges": 199,
+  "initial_render_ms": 863,
+  "selection_ms": 109
+}
