@@ -1,0 +1,38 @@
+cd backend && ENV=test DATABASE_URL=sqlite:// /workspace/scratch/60284fe6cda9/modelledger/.venv/bin/python ../scripts/export_openapi.py
+OpenAPI schema exported
+cd frontend && npm run generate
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> modelledger-web@1.0.0 generate
+> openapi-typescript ../docs/openapi.json -o src/api-types.ts
+
+✨ openapi-typescript 7.10.1
+🚀 ../docs/openapi.json → src/api-types.ts [119.8ms]
+cd backend && /workspace/scratch/60284fe6cda9/modelledger/.venv/bin/ruff check app tests
+All checks passed!
+cd frontend && npm run lint
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> modelledger-web@1.0.0 lint
+> eslint .
+
+cd backend && /workspace/scratch/60284fe6cda9/modelledger/.venv/bin/mypy app/core app/engine --strict
+Success: no issues found in 13 source files
+cd frontend && npm run typecheck
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> modelledger-web@1.0.0 typecheck
+> tsc --noEmit
+
+cd contracts && npm run typecheck
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> modelledger-contracts@1.0.0 typecheck
+> tsc --noEmit
+
+cd sdk/ts && npm run typecheck
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @modelledger/sdk@1.0.0 typecheck
+> tsc --noEmit --strict --target ES2022 --moduleResolution bundler --module ESNext index.ts
+

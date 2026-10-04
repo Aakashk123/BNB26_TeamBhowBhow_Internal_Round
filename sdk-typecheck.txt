@@ -1,0 +1,4 @@
+
+> @modelledger/sdk@1.0.0 typecheck
+> tsc --noEmit --strict --target ES2022 --moduleResolution bundler --module ESNext index.ts
+

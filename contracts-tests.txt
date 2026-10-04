@@ -1,0 +1,20 @@
+
+> modelledger-contracts@1.0.0 test
+> hardhat test
+
+
+
+  ModelLedgerRegistry
+    ✔ registers self-asserted actors, approves, anchors and publishes issuer (646ms)
+    ✔ enforces actor ownership and administrative role paths (74ms)
+    ✔ rejects impersonation, field changes and replay across chain and contract (91ms)
+    ✔ rejects malformed event shapes, zero output and future timestamps (52ms)
+    ✔ retains anchors before revocation and forbids new ones (71ms)
+    ✔ requires approved independent witnesses, deduplicates organizations and retains evidence hash (69ms)
+    ✔ rejects same-org and unknown-event witnesses (92ms)
+    ✔ anchors batches and verifies sorted-pair Merkle inclusion (83ms)
+    ✔ cannot initialize zero admin or set zero issuer (38ms)
+
+
+  9 passing (1s)
+

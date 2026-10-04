@@ -1,0 +1,8 @@
+app/core/merkle.py:1: error: Module "eth_utils" does not explicitly export attribute "keccak"  [attr-defined]
+app/core/canonical.py:4: error: Module "eth_utils" does not explicitly export attribute "keccak"  [attr-defined]
+app/core/commitments.py:2: error: Module "eth_utils" does not explicitly export attribute "keccak"  [attr-defined]
+app/core/eip712.py:4: error: Module "eth_utils" does not explicitly export attribute "keccak"  [attr-defined]
+app/core/eip712.py:29: error: Returning Any from function declared to return "str"  [no-any-return]
+app/core/eip712.py:38: error: Returning Any from function declared to return "str"  [no-any-return]
+app/core/eip712.py:47: error: Returning Any from function declared to return "str"  [no-any-return]
+Found 7 errors in 4 files (checked 12 source files)

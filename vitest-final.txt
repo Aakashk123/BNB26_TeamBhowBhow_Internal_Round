@@ -1,0 +1,13 @@
+
+> modelledger-web@1.0.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /workspace/scratch/60284fe6cda9/modelledger/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  05:03:22
+   Duration  228ms (transform 41ms, setup 0ms, import 52ms, tests 7ms, environment 0ms)
+

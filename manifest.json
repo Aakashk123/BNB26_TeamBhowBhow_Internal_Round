@@ -1,0 +1,32 @@
+[
+  {
+    "file": "01-generation.png",
+    "title": "Model A \u00b7 Generation",
+    "expected": "VERIFIED \u00b7 SIMULATED"
+  },
+  {
+    "file": "02-upscale.png",
+    "title": "Model B \u00b7 Upscale",
+    "expected": "VERIFIED \u00b7 SIMULATED"
+  },
+  {
+    "file": "03-multi-edit.png",
+    "title": "Tool C \u00b7 Crop + blur",
+    "expected": "VERIFIED \u00b7 SIMULATED"
+  },
+  {
+    "file": "04-final.jpg",
+    "title": "Platform D \u00b7 Final export",
+    "expected": "VERIFIED \u00b7 SIMULATED"
+  },
+  {
+    "file": "unknown.png",
+    "title": "Unknown origin",
+    "expected": "UNVERIFIABLE"
+  },
+  {
+    "file": "unregistered-blur.png",
+    "title": "Unregistered heavy blur",
+    "expected": "Similarity only \u00b7 UNVERIFIABLE"
+  }
+]

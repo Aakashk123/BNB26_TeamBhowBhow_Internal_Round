@@ -1,0 +1,48 @@
+..................................F                                      [100%]
+=================================== FAILURES ===================================
+____________________________ test_engine_boundaries ____________________________
+
+    def test_engine_boundaries():
+        policy,_=load_policy()
+        s=base();e=next(iter(s['events'].values()))
+        e['anchor']={};assert evaluate(s,policy,NOW)['origin_trust']=='SELF_ASSERTED'
+        s=base();e=next(iter(s['events'].values()));e['params']['width']=1
+        assert evaluate(s,policy,NOW)['status']=='PROVENANCE_INVALID'
+        s=base();s['allow_simulated']=False
+        assert evaluate(s,policy,NOW)['status']=='UNVERIFIABLE'
+        s=base();e=next(iter(s['events'].values()));e['corroborations'][0]['evidence']['observed']=False
+>       assert evaluate(s,policy,NOW)['status']=='PROVENANCE_INVALID'
+E       AssertionError: assert 'UNVERIFIABLE' == 'PROVENANCE_INVALID'
+E         
+E         - PROVENANCE_INVALID
+E         + UNVERIFIABLE
+
+tests/test_core.py:103: AssertionError
+=============================== warnings summary ===============================
+../.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/scratch/60284fe6cda9/modelledger/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.14-final-0 _______________
+
+Name                      Stmts   Miss  Cover   Missing
+-------------------------------------------------------
+app/core/__init__.py          0      0   100%
+app/core/canonical.py         7      3    57%   5, 9, 13
+app/core/commitments.py      23      9    61%   7, 13-14, 24-25, 29-32
+app/core/eip712.py           28     18    36%   7, 17-22, 26-35, 39-40, 44-53
+app/core/hashing.py           3      0   100%
+app/core/merkle.py           33      1    97%   33
+app/core/perceptual.py       17      0   100%
+app/core/pixelhash.py        30      8    73%   11-12, 21, 23, 31-32, 36-37
+app/engine/__init__.py        0      0   100%
+app/engine/policy.py          8      3    62%   8, 12-13
+app/engine/reasons.py        34      0   100%
+app/engine/verdict.py       198     29    85%   7, 34, 36-38, 49, 68, 71-72, 79, 91, 98-99, 108, 111, 115-116, 136-137, 140, 144-146, 150-151, 160, 166, 171, 175, 198
+-------------------------------------------------------
+TOTAL                       381     71    81%
+=========================== short test summary info ============================
+FAILED tests/test_core.py::test_engine_boundaries - AssertionError: assert 'U...
+1 failed, 34 passed, 1 warning in 14.94s

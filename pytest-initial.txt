@@ -1,0 +1,374 @@
+EEE................................                                      [100%]
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_unknown_upload_and_privacy _______________
+
+self = <class 'eth_account.account.Account'>, key = '0x00'
+
+    @combomethod
+    def _parse_private_key(
+        self,
+        key: PrivateKeyType,
+    ) -> PrivateKey:
+        """
+        Generate a :class:`eth_keys.datatypes.PrivateKey` from the provided key.
+    
+        If the key is already of type :class:`eth_keys.datatypes.PrivateKey`,
+        return the key.
+    
+        :param key: the private key from which a :class:`eth_keys.datatypes.PrivateKey`
+                    will be generated
+        :type key: hex str, bytes, int or :class:`eth_keys.datatypes.PrivateKey`
+        :returns: the provided key represented as a
+                  :class:`eth_keys.datatypes.PrivateKey`
+        """
+        if isinstance(key, self._keys.PrivateKey):
+            return key
+    
+        hb_key = HexBytes(key)
+    
+        try:
+>           return self._keys.PrivateKey(hb_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../.venv/lib/python3.12/site-packages/eth_account/account.py:924: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../.venv/lib/python3.12/site-packages/eth_keys/datatypes.py:241: in __init__
+    validate_private_key_bytes(private_key_bytes)
+../.venv/lib/python3.12/site-packages/eth_keys/validation.py:82: in validate_private_key_bytes
+    validate_bytes_length(value, 32, "private key")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = HexBytes('0x00'), expected_length = 32, name = 'private key'
+
+    def validate_bytes_length(value: bytes, expected_length: int, name: str) -> None:
+        actual_length = len(value)
+        if actual_length != expected_length:
+>           raise ValidationError(
+                f"Unexpected {name} length: Expected {expected_length}, but got "
+                f"{actual_length} bytes"
+            )
+E           eth_utils.exceptions.ValidationError: Unexpected private key length: Expected 32, but got 1 bytes
+
+../.venv/lib/python3.12/site-packages/eth_keys/validation.py:53: ValidationError
+
+The above exception was the direct cause of the following exception:
+
+db = <sqlalchemy.orm.session.Session object at 0x7f6f52e37d40>
+chain = <app.chain.client.Chain object at 0x7f6f52f24800>
+
+    @pytest.fixture
+    def client(db,chain):
+        def db_override():yield db
+        app.dependency_overrides[get_db]=db_override
+        app.dependency_overrides[get_chain]=lambda:chain
+        original=settings.issuer_key;settings.issuer_key=chain.keys[8]
+>       chain.send(chain.contract.functions.setIssuer(chain.web3.eth.accounts[8]),chain.keys[0])
+
+tests/conftest.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/chain/client.py:27: in send
+    acct = Account.from_key(key)
+           ^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_utils/decorators.py:30: in _wrapper
+    return self.method(objtype, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_account/account.py:315: in from_key
+    key = self._parse_private_key(private_key)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_utils/decorators.py:30: in _wrapper
+    return self.method(objtype, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <class 'eth_account.account.Account'>, key = '0x00'
+
+    @combomethod
+    def _parse_private_key(
+        self,
+        key: PrivateKeyType,
+    ) -> PrivateKey:
+        """
+        Generate a :class:`eth_keys.datatypes.PrivateKey` from the provided key.
+    
+        If the key is already of type :class:`eth_keys.datatypes.PrivateKey`,
+        return the key.
+    
+        :param key: the private key from which a :class:`eth_keys.datatypes.PrivateKey`
+                    will be generated
+        :type key: hex str, bytes, int or :class:`eth_keys.datatypes.PrivateKey`
+        :returns: the provided key represented as a
+                  :class:`eth_keys.datatypes.PrivateKey`
+        """
+        if isinstance(key, self._keys.PrivateKey):
+            return key
+    
+        hb_key = HexBytes(key)
+    
+        try:
+            return self._keys.PrivateKey(hb_key)
+        except ValidationError as original_exception:
+>           raise ValueError(
+                "The private key must be exactly 32 bytes long, instead of "
+                f"{len(hb_key)} bytes."
+            ) from original_exception
+E           ValueError: The private key must be exactly 32 bytes long, instead of 1 bytes.
+
+../.venv/lib/python3.12/site-packages/eth_account/account.py:926: ValueError
+____________ ERROR at setup of test_registration_history_isolation _____________
+
+self = <class 'eth_account.account.Account'>, key = '0x00'
+
+    @combomethod
+    def _parse_private_key(
+        self,
+        key: PrivateKeyType,
+    ) -> PrivateKey:
+        """
+        Generate a :class:`eth_keys.datatypes.PrivateKey` from the provided key.
+    
+        If the key is already of type :class:`eth_keys.datatypes.PrivateKey`,
+        return the key.
+    
+        :param key: the private key from which a :class:`eth_keys.datatypes.PrivateKey`
+                    will be generated
+        :type key: hex str, bytes, int or :class:`eth_keys.datatypes.PrivateKey`
+        :returns: the provided key represented as a
+                  :class:`eth_keys.datatypes.PrivateKey`
+        """
+        if isinstance(key, self._keys.PrivateKey):
+            return key
+    
+        hb_key = HexBytes(key)
+    
+        try:
+>           return self._keys.PrivateKey(hb_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../.venv/lib/python3.12/site-packages/eth_account/account.py:924: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../.venv/lib/python3.12/site-packages/eth_keys/datatypes.py:241: in __init__
+    validate_private_key_bytes(private_key_bytes)
+../.venv/lib/python3.12/site-packages/eth_keys/validation.py:82: in validate_private_key_bytes
+    validate_bytes_length(value, 32, "private key")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = HexBytes('0x00'), expected_length = 32, name = 'private key'
+
+    def validate_bytes_length(value: bytes, expected_length: int, name: str) -> None:
+        actual_length = len(value)
+        if actual_length != expected_length:
+>           raise ValidationError(
+                f"Unexpected {name} length: Expected {expected_length}, but got "
+                f"{actual_length} bytes"
+            )
+E           eth_utils.exceptions.ValidationError: Unexpected private key length: Expected 32, but got 1 bytes
+
+../.venv/lib/python3.12/site-packages/eth_keys/validation.py:53: ValidationError
+
+The above exception was the direct cause of the following exception:
+
+db = <sqlalchemy.orm.session.Session object at 0x7f6f52e349e0>
+chain = <app.chain.client.Chain object at 0x7f6f52f0a060>
+
+    @pytest.fixture
+    def client(db,chain):
+        def db_override():yield db
+        app.dependency_overrides[get_db]=db_override
+        app.dependency_overrides[get_chain]=lambda:chain
+        original=settings.issuer_key;settings.issuer_key=chain.keys[8]
+>       chain.send(chain.contract.functions.setIssuer(chain.web3.eth.accounts[8]),chain.keys[0])
+
+tests/conftest.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/chain/client.py:27: in send
+    acct = Account.from_key(key)
+           ^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_utils/decorators.py:30: in _wrapper
+    return self.method(objtype, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_account/account.py:315: in from_key
+    key = self._parse_private_key(private_key)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_utils/decorators.py:30: in _wrapper
+    return self.method(objtype, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <class 'eth_account.account.Account'>, key = '0x00'
+
+    @combomethod
+    def _parse_private_key(
+        self,
+        key: PrivateKeyType,
+    ) -> PrivateKey:
+        """
+        Generate a :class:`eth_keys.datatypes.PrivateKey` from the provided key.
+    
+        If the key is already of type :class:`eth_keys.datatypes.PrivateKey`,
+        return the key.
+    
+        :param key: the private key from which a :class:`eth_keys.datatypes.PrivateKey`
+                    will be generated
+        :type key: hex str, bytes, int or :class:`eth_keys.datatypes.PrivateKey`
+        :returns: the provided key represented as a
+                  :class:`eth_keys.datatypes.PrivateKey`
+        """
+        if isinstance(key, self._keys.PrivateKey):
+            return key
+    
+        hb_key = HexBytes(key)
+    
+        try:
+            return self._keys.PrivateKey(hb_key)
+        except ValidationError as original_exception:
+>           raise ValueError(
+                "The private key must be exactly 32 bytes long, instead of "
+                f"{len(hb_key)} bytes."
+            ) from original_exception
+E           ValueError: The private key must be exactly 32 bytes long, instead of 1 bytes.
+
+../.venv/lib/python3.12/site-packages/eth_account/account.py:926: ValueError
+_______________ ERROR at setup of test_invalid_and_private_error _______________
+
+self = <class 'eth_account.account.Account'>, key = '0x00'
+
+    @combomethod
+    def _parse_private_key(
+        self,
+        key: PrivateKeyType,
+    ) -> PrivateKey:
+        """
+        Generate a :class:`eth_keys.datatypes.PrivateKey` from the provided key.
+    
+        If the key is already of type :class:`eth_keys.datatypes.PrivateKey`,
+        return the key.
+    
+        :param key: the private key from which a :class:`eth_keys.datatypes.PrivateKey`
+                    will be generated
+        :type key: hex str, bytes, int or :class:`eth_keys.datatypes.PrivateKey`
+        :returns: the provided key represented as a
+                  :class:`eth_keys.datatypes.PrivateKey`
+        """
+        if isinstance(key, self._keys.PrivateKey):
+            return key
+    
+        hb_key = HexBytes(key)
+    
+        try:
+>           return self._keys.PrivateKey(hb_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../.venv/lib/python3.12/site-packages/eth_account/account.py:924: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../.venv/lib/python3.12/site-packages/eth_keys/datatypes.py:241: in __init__
+    validate_private_key_bytes(private_key_bytes)
+../.venv/lib/python3.12/site-packages/eth_keys/validation.py:82: in validate_private_key_bytes
+    validate_bytes_length(value, 32, "private key")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = HexBytes('0x00'), expected_length = 32, name = 'private key'
+
+    def validate_bytes_length(value: bytes, expected_length: int, name: str) -> None:
+        actual_length = len(value)
+        if actual_length != expected_length:
+>           raise ValidationError(
+                f"Unexpected {name} length: Expected {expected_length}, but got "
+                f"{actual_length} bytes"
+            )
+E           eth_utils.exceptions.ValidationError: Unexpected private key length: Expected 32, but got 1 bytes
+
+../.venv/lib/python3.12/site-packages/eth_keys/validation.py:53: ValidationError
+
+The above exception was the direct cause of the following exception:
+
+db = <sqlalchemy.orm.session.Session object at 0x7f6f52eec530>
+chain = <app.chain.client.Chain object at 0x7f6f511ce4e0>
+
+    @pytest.fixture
+    def client(db,chain):
+        def db_override():yield db
+        app.dependency_overrides[get_db]=db_override
+        app.dependency_overrides[get_chain]=lambda:chain
+        original=settings.issuer_key;settings.issuer_key=chain.keys[8]
+>       chain.send(chain.contract.functions.setIssuer(chain.web3.eth.accounts[8]),chain.keys[0])
+
+tests/conftest.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/chain/client.py:27: in send
+    acct = Account.from_key(key)
+           ^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_utils/decorators.py:30: in _wrapper
+    return self.method(objtype, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_account/account.py:315: in from_key
+    key = self._parse_private_key(private_key)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/eth_utils/decorators.py:30: in _wrapper
+    return self.method(objtype, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <class 'eth_account.account.Account'>, key = '0x00'
+
+    @combomethod
+    def _parse_private_key(
+        self,
+        key: PrivateKeyType,
+    ) -> PrivateKey:
+        """
+        Generate a :class:`eth_keys.datatypes.PrivateKey` from the provided key.
+    
+        If the key is already of type :class:`eth_keys.datatypes.PrivateKey`,
+        return the key.
+    
+        :param key: the private key from which a :class:`eth_keys.datatypes.PrivateKey`
+                    will be generated
+        :type key: hex str, bytes, int or :class:`eth_keys.datatypes.PrivateKey`
+        :returns: the provided key represented as a
+                  :class:`eth_keys.datatypes.PrivateKey`
+        """
+        if isinstance(key, self._keys.PrivateKey):
+            return key
+    
+        hb_key = HexBytes(key)
+    
+        try:
+            return self._keys.PrivateKey(hb_key)
+        except ValidationError as original_exception:
+>           raise ValueError(
+                "The private key must be exactly 32 bytes long, instead of "
+                f"{len(hb_key)} bytes."
+            ) from original_exception
+E           ValueError: The private key must be exactly 32 bytes long, instead of 1 bytes.
+
+../.venv/lib/python3.12/site-packages/eth_account/account.py:926: ValueError
+=============================== warnings summary ===============================
+../.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/scratch/60284fe6cda9/modelledger/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.14-final-0 _______________
+
+Name                      Stmts   Miss  Cover   Missing
+-------------------------------------------------------
+app/core/__init__.py          0      0   100%
+app/core/canonical.py         7      0   100%
+app/core/commitments.py      23      2    91%   29-30
+app/core/eip712.py           28      0   100%
+app/core/hashing.py           3      0   100%
+app/core/merkle.py           33      1    97%   33
+app/core/perceptual.py       17      0   100%
+app/core/pixelhash.py        30      2    93%   21, 23
+app/engine/__init__.py        0      0   100%
+app/engine/policy.py          8      0   100%
+app/engine/reasons.py        34      0   100%
+app/engine/verdict.py       196     21    89%   34, 36-38, 71-72, 79, 98-99, 108, 111, 115-116, 138, 143-144, 148-149, 158, 169, 173
+-------------------------------------------------------
+TOTAL                       379     26    93%
+=========================== short test summary info ============================
+ERROR tests/test_api.py::test_unknown_upload_and_privacy - ValueError: The pr...
+ERROR tests/test_api.py::test_registration_history_isolation - ValueError: Th...
+ERROR tests/test_api.py::test_invalid_and_private_error - ValueError: The pri...
+32 passed, 1 warning, 3 errors in 18.20s

@@ -1,0 +1,13 @@
+
+> modelledger-web@1.0.0 build
+> tsc -b && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 1971 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.54 kB │ gzip:   0.36 kB
+dist/assets/index-DWzZYGHY.css   40.14 kB │ gzip:   8.71 kB
+dist/assets/index-CfdD0amG.js   487.87 kB │ gzip: 158.24 kB
+✓ built in 10.19s

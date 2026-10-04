@@ -1,0 +1,50 @@
+name: modelledger-production
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: modelledger
+      POSTGRES_DB: modelledger
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a production database password}
+    volumes: ["production-db:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U modelledger -d modelledger"]
+      interval: 5s
+      retries: 20
+    restart: unless-stopped
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file: .env.production
+    environment:
+      ENV: production
+      DATABASE_URL: postgresql+psycopg://modelledger:${POSTGRES_PASSWORD}@postgres:5432/modelledger
+      ALLOW_SIMULATED: "false"
+      ENABLE_DEMO: "false"
+      DEV_API_KEY: ""
+    depends_on:
+      postgres: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,json; r=json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health')); assert r['status']=='healthy'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    depends_on:
+      backend: {condition: service_healthy}
+    restart: unless-stopped
+  caddy:
+    image: caddy:2-alpine
+    environment:
+      DOMAIN: ${DOMAIN:?Set your domain and point its DNS at this server}
+    ports: ["80:80", "443:443"]
+    volumes: ["./config/Caddyfile:/etc/caddy/Caddyfile:ro", "caddy-data:/data", "caddy-config:/config"]
+    depends_on: [frontend]
+    restart: unless-stopped
+volumes:
+  production-db:
+  caddy-data:
+  caddy-config:
